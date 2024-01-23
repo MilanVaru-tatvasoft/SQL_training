@@ -19,10 +19,21 @@ select * from salesman;
 		select c.cust_name, c.city,s.name,s.commision 
 		from customer c inner join salesman s  on c.salesman_id = s.salesman_id;
 
-----4)	write a SQL query to find salespeople who received commissions of more than 12 percent from the company.Return Customer Name, customer city, Salesman, ---		commission.--->		select c.cust_name, s.name, s.commision 		from customer c inner join salesman s on c.salesman_id = s.salesman_id
+----4)	write a SQL query to find salespeople who received commissions of more than 12 percent from the company.Return Customer Name, customer city, Salesman, 
+---		commission.
+--->
+		select c.cust_name, s.name, s.commision 
+		from customer c inner join salesman s on c.salesman_id = s.salesman_id
 		where s.commision > 12 ;
-----5)   write a SQL query to locate those salespeople who do not live in the same city where their customers live and have received a commission of more  
----		than 12% from the company. Return Customer Name, customer city, Salesman, salesman city, commission*/--->			select c.cust_name, c.city, s.name, s.city, s.commision 		from customer c join salesman s on c.salesman_id = s.salesman_id 		where s.commision > 12 and c.city <> s.city;		----6. write a SQL query to find the details of an order. Return ord_no, ord_date, purch_amt, Customer Name, grade, Salesman, commission
+
+----5)   write a SQL query to locate those salespeople who do not live in the same city where their customers live and have received a commission of more  
+---		than 12% from the company. Return Customer Name, customer city, Salesman, salesman city, commission*/
+--->	
+		select c.cust_name, c.city, s.name, s.city, s.commision 
+		from customer c join salesman s on c.salesman_id = s.salesman_id 
+		where s.commision > 12 and c.city <> s.city;
+		
+----6. write a SQL query to find the details of an order. Return ord_no, ord_date, purch_amt, Customer Name, grade, Salesman, commission
 --->
 		select o.ord_no, o.ord_date, o.purch_amt, c.cust_name,c.grade, s.name, s.commision 
 		from orders o join customer c on o.customer_id =c.customer_id join salesman s on c.salesman_id = s.salesman_id ;
@@ -71,28 +82,51 @@ select * from salesman;
 
 ----13. write a SQL query to list all salespersons along with customer name, city, grade, order number, date, and amount.
 --->
-			
-----14. Write a SQL statement to make a list for the salesmen who either work for one or
----more customers or yet to join any of the customers. The customer may have placed,
----either one or more orders on or above order amount 2000 and must have a grade, or
----he may not have placed any order to the associated supplier.
+			SELECT c.cust_name, c.city, c.grade, s.name AS "Salesman", o.ord_no, o.ord_date, o.purch_amt 
+			FROM customer c RIGHT OUTER JOIN salesman s ON s.salesman_id = c.salesman_id 
+							LEFT OUTER JOIN orders o ON o.customer_id = c.customer_id;
+
+----14. Write a SQL statement to make a list for the salesmen who either work for one or more customers or yet to join any of the customers.
+---		The customer may have placed, either one or more orders on or above order amount 2000 and must have a grade, or he may not have placed 
+---		any order to the associated supplier.
 --->
-----15. Write a SQL statement to generate a list of all the salesmen who either work for one
----or more customers or have yet to join any of them. The customer may have placed
----one or more orders at or above order amount 2000, and must have a grade, or he
----may not have placed any orders to the associated supplier.
+		SELECT c.cust_name, c.city, c.grade, s.name AS "Salesman", o.ord_no, o.ord_date, o.purch_amt 
+		FROM customer c RIGHT OUTER JOIN salesman s ON s.salesman_id = c.salesman_id 
+					  LEFT OUTER JOIN orders o ON o.customer_id = c.customer_id
+		WHERE o.purch_amt >= 2000 AND c.grade IS NOT NULL;
+	
+----15. Write a SQL statement to generate a list of all the salesmen who either work for one or more customers or have yet to join any of them. 
+---		The customer may have placed one or more orders at or above order amount 2000, and must have a grade, or he may not have placed any orders
+---		to the associated supplier.
 --->
+		SELECT c.cust_name, c.city, c.grade, s.name AS "Salesman", o.ord_no, o.ord_date, o.purch_amt 
+		FROM customer c RIGHT OUTER JOIN salesman s ON s.salesman_id = c.salesman_id 
+					  LEFT OUTER JOIN orders o ON o.customer_id = c.customer_id
+		WHERE o.purch_amt >= 2000 AND c.grade IS NOT NULL;
+
 ----16. Write a SQL statement to generate a report with the customer name, city, order no.
 ---order date, purchase amount for only those customers on the list who must have a
 ---grade and placed one or more orders or which order(s) have been placed by the
 ---customer who neither is on the list nor has a grade.
 --->
+		select c.cust_name, c.city, o.ord_no, o.ord_date, o.purch_amt 
+		from customer c left outer join orders o
+		on c.customer_id = o.customer_id 
+		where (c.grade IS NOT NULL	AND o.customer_id is not null) or (o.customer_id is null and c.grade is null);
+
+
 ----17. Write a SQL query to combine each row of the salesman table with each row of the
 ---customer table
 --->
+		select * from salesman s full outer join  customer c 
+		on s.salesman_id = c.salesman_id;
+
 ----18. Write a SQL statement to create a Cartesian product between salesperson and
 ---customer, i.e. each salesperson will appear for all customers and vice versa for that
----salesperson who belongs to that city--->----19. Write a SQL statement to create a Cartesian product between salesperson and
+---salesperson who belongs to that city
+--->
+	
+----19. Write a SQL statement to create a Cartesian product between salesperson and
 ---customer, i.e. each salesperson will appear for every customer and vice versa for
 ---those salesmen who belong to a city and customers who require a grade
 --->
@@ -101,4 +135,6 @@ select * from salesman;
 ---salesmen who must belong to a city which is not the same as his customer and the
 ---customers should have their own grade
 --->
---------------------------------------------------------------------
+--------------------------------------------------------------------
+
+
