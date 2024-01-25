@@ -27,11 +27,14 @@ select * from Suppliers;
 ----3. write a SQL query to Create Stored procedure in the Northwind database to retrieve 
 ---		Sales by Year
 --->
+		execute GetSalesByYear;
+
 		
 ----4. write a SQL query to Create Stored procedure in the Northwind database to retrieve 
 ---		Sales By Cate ry
 --->
-		
+		execute GetSalesByCategory;
+
 ----5. write a SQL query to Create Stored procedure in the Northwind database to retrieve 
 ---		Ten Most Expensive Products
 --->
