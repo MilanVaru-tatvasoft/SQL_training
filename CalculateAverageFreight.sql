@@ -1,13 +1,20 @@
 
 
---CREATE PROCEDURE CalculateAverageFreight
+----CREATE PROCEDURE CalculateAverageFreight
 ALTER PROCEDURE CalculateAverageFreight
+@CustomerID nchar(20),
+@AvgFreight MONEY OUT
+
 AS
 BEGIN
-	DECLARE @AvgFreight MONEY;
-	SELECT @AvgFreight = AVG(o.Freight) FROM Orders o JOIN Customers c ON o.CustomerID = c.CustomerID GROUP BY o.CustomerID;
---	PRINT @AvgFreight;
+	SELECT @AvgFreight = AVG(Freight) FROM Orders where @CustomerID = CustomerID  ;
+
+	--PRINT @AvgFreight;
 	RETURN @AvgFreight;
 END
 GO
 
+
+	SELECT  AVG(Freight) FROM Orders where CustomerID = 'VINET';
+
+			execute CalculateAverageFreight 'VINET';

@@ -1,14 +1,2 @@
 
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- ============================================
-CREATE PROCEDURE CalculateAverageFreight
-	@CustomerID nchar(5)
-	AS
-BEGIN
-	SELECT AVG(Freight) AS AverageFreight
-	FROM [orders]
-	WHERE CustomerID = @CustomerID
-END;
+--CREATE PROC spAvgFreightALTER PROC spAvgFreight@customer_id nchar(5)ASBEGIN	DECLARE @AVG_FREIGHT MONEY;	SELECT 		@AVG_FREIGHT = AVG(Freight)	FROM 		[Orders]	WHERE 		CustomerID = @customer_id	GROUP BY		CustomerID;	PRINT @AVG_FREIGHT;	RETURN @AVG_FREIGHT;END;spAvgFreight "VINET"

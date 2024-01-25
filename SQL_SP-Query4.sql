@@ -1,4 +1,4 @@
-CREATE PROCEDURE GetSalesByCategory
+CREATE PROCEDURE spGetSalesByCategory
 AS
 BEGIN
     SELECT c.CategoryName,
